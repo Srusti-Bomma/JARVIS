@@ -3,7 +3,7 @@ from google.genai import types
 import os
 import time
 
-client = genai.Client(api_key="AQ.Ab8RN6Lo8Q38At2t4PQq9QVWvaNin0htapuHJU8prE-UXN1KkQ")
+client = genai.Client(api_key="Gemini_api_key")
 
 SYSTEM_PROMPT = """You are JARVIS, a highly intelligent personal AI assistant 
 inspired by Iron Man's JARVIS. 
