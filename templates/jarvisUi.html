@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>J.A.R.V.I.S — Voice Interface</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="/static/Jarvis_ui.css">
+<meta http-equiv="Permissions-Policy" content="microphone=*">
+
+<!-- <button id="mic-btn" onclick="toggleListen()"></button> -->
+<!--<style>
+
+</style>-->
+</head>
+<body>
+
+<!-- Boot Sequence -->
+<div id="boot">
+  <div class="boot-logo">JARVIS</div>
+  <div class="boot-lines" id="boot-lines">
+    INITIALIZING SYSTEMS...<br>
+    LOADING NEURAL INTERFACE...<br>
+    ESTABLISHING SECURE LINK...
+  </div>
+  <div class="boot-bar-wrap">
+    <div class="boot-bar"></div>
+  </div>
+</div>
+
+<!-- Corner Decorations -->
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<!-- Hex Background -->
+<div class="hex-bg"></div>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <div class="logo">J.<span>A</span>.R.V.I.S</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;color:var(--dim);letter-spacing:0.2em;margin-top:2px;">
+        JUST A RATHER VERY INTELLIGENT SYSTEM
+      </div>
+    </div>
+    <div class="header-sub">
+      <div><span class="status-dot"></span><b>SYSTEM ONLINE</b></div>
+      <div>VER 4.2.1 // STARK INDUSTRIES</div>
+      <div id="clock-display">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- LEFT PANEL -->
+  <div class="panel left-panel">
+    <div class="panel-label">SYSTEM DIAGNOSTICS</div>
+    
+    <div class="metric">
+      <div class="metric-header"><span>NEURAL PROC</span><span id="cpu-val">94%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="cpu-bar" style="width:94%"></div></div>
+    </div>
+    <div class="metric">
+      <div class="metric-header"><span>MEMORY MATRIX</span><span id="mem-val">71%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="mem-bar" style="width:71%"></div></div>
+    </div>
+    <div class="metric">
+      <div class="metric-header"><span>NETWORK LINK</span><span id="net-val">88%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="net-bar" style="width:88%"></div></div>
+    </div>
+    <div class="metric">
+      <div class="metric-header"><span>VOICE MODULE</span><span id="vox-val">100%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="vox-bar" style="width:100%"></div></div>
+    </div>
+
+    <div class="mini-chart" id="mini-chart">
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="panel-label">ARC POWER FEED</div>
+      <div style="font-family:'Orbitron',monospace;font-size:1.6rem;color:var(--arc3);text-shadow:0 0 14px var(--arc3);letter-spacing:0.1em;" id="power-display">3.00 GW</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:var(--dim);margin-top:4px;">REACTOR OUTPUT NOMINAL</div>
+    </div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- Arc Reactor -->
+    <div class="arc-reactor">
+      <div class="ring ring-1">
+        <div class="ring ring-2">
+          <div class="ring ring-3">
+            <div class="core" id="core" onclick="toggleListen()">
+              <div class="core-outer"></div>
+              <div class="core-inner">JARVIS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arc-status" id="arc-status">STANDBY — AWAITING INPUT</div>
+
+    <!-- Waveform -->
+    <div class="waveform idle" id="waveform"></div>
+
+    <!-- Response -->
+    <div class="response-area">
+      <div id="response-text">Hello, Ma'am. All systems are online. How may I assist you today?</div>
+      <div id="transcript-text"></div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="panel right-panel">
+    <div class="panel-label">ACTIVITY LOG</div>
+    <div class="log-list" id="log-list"></div>
+
+    <div class="radar-wrap">
+      <div class="radar">
+        <div class="radar-ring" style="width:80%;height:80%;"></div>
+        <div class="radar-ring" style="width:50%;height:50%;"></div>
+        <div class="radar-ring" style="width:20%;height:20%;"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-blip" style="top:30%;left:60%;animation-delay:0.5s;"></div>
+        <div class="radar-blip" style="top:65%;left:35%;animation-delay:1.2s;"></div>
+        <div class="radar-blip" style="top:45%;left:70%;animation-delay:2.1s;"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div class="panel-label">COMMANDS RECOGNIZED</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;" id="cmd-tags"></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+    <button class="control-btn" onclick="clearLog()"><span>CLEAR</span></button>
+    <button id="mic-btn" onclick="toggleListen()" title="Toggle Voice Input">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+        <line x1="12" y1="19" x2="12" y2="23"/>
+        <line x1="8" y1="23" x2="16" y2="23"/>
+      </svg>
+    </button>
+    <div class="input-wrap">
+      <input id="text-input" type="text" placeholder="ENTER COMMAND OR QUERY..." autocomplete="off"/>
+      <button id="send-btn" onclick="sendText()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+    <div class="data-feeds">
+      <div class="data-feed"><span>UPTIME</span><b id="uptime-val">00:00:00</b></div>
+      <div class="data-feed"><span>QUERIES</span><b id="query-count">0</b></div>
+      <div class="data-feed"><span>CONFIDENCE</span><b id="conf-val">100%</b></div>
+    </div>
+    <button class="control-btn" onclick="resetSystem()"><span>RESET</span></button>
+  </div>
+
+</div>
+
+<!-- Socket.IO — must come first -->
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+<script src="/static/jarvis_ui.js"></script>
+<!-- <script>
+
+</script>-->
+</body>
+</html>

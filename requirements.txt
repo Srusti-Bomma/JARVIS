@@ -1,0 +1,48 @@
+Always run project "
+cd C:\Jarvis
+ctrl + shift + `  (to open terminal in VS Code)
+ctrl + shift + P ==> select python debugger
+select python venv 3.11
+venv311\Scripts\activate
+python app.py
+go to chrome and open http://127.0.0.1:5000/
+
+...
+The voice of jarvis is mainly supported in version 311
+...
+
+✅ pygame 2.6.1 loaded
+✅ Serving Flask app 'app'
+✅ Debug mode: on
+✅ Running on http://127.0.0.1:5000
+✅ Debugger is active!
+
+...
+
+C:\Jarvis\
+├── app.py
+├── Jarvis.py
+├── brain.py
+├── templates\          ← create this folder
+│   └── jarvisUi.html   ← move your HTML file here
+├── static\             ← create this folder too
+│   ├── Jarvis_ui.css   ← move your CSS here
+│   └── jarvis_ui.js    ← move your JS here
+...
+
+how will i get to know, how my jarvis work : use python backend(edgetts voice + brain.py) OR keep browser based OR both browser mic/TTS but send commands to python backend?
+...
+
+Also ensure Chrome has mic permission — click the 🔒 lock icon in the address bar → check Microphone is Allowed.
+...
+
+to allow mic access in Chrome, click the lock icon next to the URL, find "Microphone" in the permissions list, and set it to "Allow". Then refresh the page for the changes to take effect.     
+OR Go to chrome://settings/content/microphone
+   Under Allowed add http://127.0.0.1:5000
+
+...
+PRIMARY KEY==> Name : Zade Meadows (while creating API Key on https://console.anthropic.com )
+   api key ==> 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
+   
+BACKUP KEY==> Name : Zade Meadows (while creating API Key on https://aistudio.google.com )
+   api key ==> AQ.Ab8RN6Lo8Q38At2t4PQq9QVWvaNin0htapuHJU8prE-UXN1KkQ
